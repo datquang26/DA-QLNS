@@ -8,11 +8,15 @@ import { Product } from "@/types/product";
 import Link from "next/link";
 import { CATEGORY_SERVICE, COMMON_API, ORDER_SERVICE, UPLOAD_SERVICE } from "@/services/api.service";
 import { redirect, useRouter, useSearchParams } from "next/navigation";
-import { buildImage, checkTextOrder, formatMoney, formatTime, getItem, readFile, setField } from "@/services/helpers.service";
+import { buildImage, checkTextOrder, formatMoney, formatTime, formatTime2, getItem, readFile, setField } from "@/services/helpers.service";
 import SelectGroupTwo from "@/components/SelectGroup/SelectGroupTwo";
 import Loader from "@/components/common/Loader";
 import CkeditorPage from "@/components/common/CkEditor";
 import '../../../assets/style.css'
+import axios from "axios";
+import handler from "@/services/configCORS";
+import moment from "moment";
+import { message  } from "antd";
 
 
 const INIT_FORM: any = {
@@ -34,17 +38,23 @@ const INIT_FORM: any = {
 	employerTypeId: "",
 	certificateId: "",
 	roomId: "",
-	userRankId: ""
+	userRankId: "",
+	cccdImg: ""
 };
 
 
 
 const UserForm: React.FC = () => {
-
+	
 	const [file, setFile] = useState(null);
 
+	const [cccdFile, setCccdFile] = useState(null);
+
 	const [imgBase64, setImgBase64]: any = useState(null);
+
+	const [imgCccd, setImgCccd]: any = useState(null);
 	let refFile = useRef(null);
+	let refCccdFile = useRef(null);
 
 	const [loading, setLoading] = useState(false);
 
@@ -92,6 +102,7 @@ const UserForm: React.FC = () => {
 		setLoading(false);
 
 		if (response?.status == "success") {
+			console.log(response?.data?.avatar)
 			setData({
 				name: response?.data?.name,
 				email: response?.data?.email,
@@ -111,9 +122,11 @@ const UserForm: React.FC = () => {
 				employerTypeId: response?.data?.employerType?.id,
 				certificateId: response?.data?.certificate?.id,
 				roomId: response?.data?.room?.id,
-				userRankId: response?.data?.rank?.id
+				userRankId: response?.data?.rank?.id,
+				cccdImg: response?.data?.cccdImg
 			});
-			setImgBase64(buildImage(response?.data?.avatar))
+			setImgBase64(response?.data?.avatar)
+			setImgCccd(response?.data?.cccdImg)
 		}
 
 	}
@@ -156,59 +169,59 @@ const UserForm: React.FC = () => {
 	const submit = async (e: any) => {
 		e.preventDefault();
 		let response: any;
-		let bodyData: any = data;
+		let bodyData: FormData = new FormData();
 
 		let count = 0;
 		let objError = {
 			...INIT_FORM
 		}
-		if (!bodyData.name || bodyData.name == '') {
+		if (!data.name || data.name == '') {
 			objError.name = 'Tên phòng không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.status || bodyData.status?.trim() == '') {
+		if (!data.status || data.status?.trim() == '') {
 			objError.status = 'Trạng thái không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.cccd || bodyData.cccd?.trim() == '') {
+		if (!data.cccd || data.cccd?.trim() == '') {
 			objError.cccd = 'CCCD không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.cccdAddress || bodyData.cccdAddress?.trim() == '') {
+		if (!data.cccdAddress || data.cccdAddress?.trim() == '') {
 			objError.cccdAddress = 'Quê quán không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.address || bodyData.address?.trim() == '') {
+		if (!data.address || data.address?.trim() == '') {
 			objError.address = 'Thường trú không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.userRankId || bodyData.userRankId == '') {
+		if (!data.userRankId || data.userRankId == '') {
 			objError.userRankId = 'Chức vụ không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.roomId || bodyData.roomId == '') {
+		if (!data.roomId || data.roomId == '') {
 			objError.roomId = 'Phòng ban không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.employerTypeId || bodyData.employerTypeId == '') {
+		if (!data.employerTypeId || data.employerTypeId == '') {
 			objError.employerTypeId = 'Loại nhân viên không được để trống.'
 			count++;
 		}
 
-		if (!bodyData.email || bodyData.email?.trim() == '') {
+		if (!data.email || data.email?.trim() == '') {
 			objError.email = 'Email nhân viên không được để trống.'
 			count++;
 		}
 
 		if (!id) {
-			if (!bodyData.password || bodyData.password == '') {
+			if (!data.password || data.password == '') {
 				objError.password = 'Mật khẩu không được để trống.'
 				count++;
 			}
@@ -220,9 +233,33 @@ const UserForm: React.FC = () => {
 			return;
 		}
 
-		if(file) {
-			bodyData.avatar = await UPLOAD_SERVICE.upload(file);
+		if (file) {
+			const blob = new Blob([file]);
+			bodyData.append('avatar', blob);
 		}
+
+		if (cccdFile) {
+			const blob = new Blob([cccdFile]);
+			bodyData.append('cccdImg', blob);
+		}
+
+		bodyData.append("address", data.address);
+		bodyData.append("cccd", data.cccd);
+		bodyData.append("cccdAddress", data.cccdAddress);
+		bodyData.append("cccdDate", data.cccdDate);
+		bodyData.append("certificateId", data.certificateId);
+		bodyData.append("dob", data.dob);
+		bodyData.append("email", data.email);
+		bodyData.append("employerTypeId", data.employerTypeId);
+		bodyData.append("gender", data.gender);
+		bodyData.append("name", data.name);
+		bodyData.append("password", data.password);
+		bodyData.append("phone", data.phone);
+		bodyData.append("region", data.region);
+		bodyData.append("roomId", data.roomId);
+		bodyData.append("status", data.status);
+		bodyData.append("userRankId", data.userRankId);
+		bodyData.append("userType", data.userType);
 		setLoading(true);
 
 		if (id) {
@@ -232,10 +269,10 @@ const UserForm: React.FC = () => {
 		}
 		setLoading(false);
 
-		if (response?.status == 'success') {
-			resetForm()
-			router.push('/user');
-		}
+		// if (response?.status == 'success') {
+		// 	resetForm()
+		// 	router.push('/user');
+		// }
 	}
 
 	const resetForm = () => {
@@ -253,7 +290,37 @@ const UserForm: React.FC = () => {
 		}
 	}
 
+	const validateCCCD = async (file: any) => {
+		setLoading(true);
+		const res = await UPLOAD_SERVICE.validateCCCD(file);
+		if (!res || res?.data?.errorCode !== 0) {
+			message.error('Đọc căn cước thất bại!'); 
+		} else {
+			const data = res?.data?.data?.[0];
+			setData({
+				name: data.name,
+				gender: data.sex,
+				address: data.address,
+				cccd: data.id,
+				cccdAddress: data.home,
+				region: data.nationality,
+				dob: moment(data.dob, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+				cccdDate: moment(data.doe, 'DD/MM/YYYY').format('YYYY-MM-DD'),
+			});
+		}
+		setLoading(false);
+	}
 
+	const changeCccd = async (e: any) => {
+		e.preventDefault();
+		if (e.target.files) {
+			setCccdFile(e.target.files[0]);
+			readFile(e?.target?.files[0], setCccdFile, setImgCccd)
+			
+			validateCCCD(e.target.files[0])
+		}
+		
+	}
 	return (
 		<DefaultLayout>
 			<Breadcrumb pageName={title} subName="Phòng ban" />
@@ -273,6 +340,7 @@ const UserForm: React.FC = () => {
 									Tên nhân viên
 								</label>
 								<input
+									disabled
 									type="text"
 									placeholder="Tên nhân viên"
 									defaultValue={data.name}
@@ -349,6 +417,30 @@ const UserForm: React.FC = () => {
 
 							</div>
 
+
+
+							<div className="mb-5 form">
+								<label className="mb-3 text-xl block text-sm font-medium text-black dark:text-white">
+									Căn cước công dân
+								</label>
+								<input
+									type="file"
+									ref={ refCccdFile }
+									style={{visibility: 'hidden'}}
+									accept="image/*"
+
+									onChange={(e) => changeCccd(e)}
+								/>
+								<img src={imgCccd || "/images/image_faildoad.png"} className="avatar d-flex mx-auto cursor-pointer" onClick={
+									e => {
+										if (refCccdFile?.current) refCccdFile.current.click();
+									}
+								} />
+								{errorFile != '' && <span className="text-red text-xl mt-3">{errorFile}</span>}
+							</div>
+
+
+
 							<div className="mb-5 form">
 								<label className="mb-3 text-xl block text-sm font-medium text-black dark:text-white">
 									Ảnh đại diện
@@ -374,8 +466,9 @@ const UserForm: React.FC = () => {
 									Ngày sinh
 								</label>
 								<input
+									disabled
 									type="date"
-									placeholder="Tên nhân viên"
+									placeholder="Ngày sinh"
 									defaultValue={data.dob}
 									onChange={e => {
 										setField(e?.target?.value, 'dob', data, setData);
@@ -402,6 +495,7 @@ const UserForm: React.FC = () => {
 									value={data.status}
 									form={data}
 									setForm={setData}
+									
 								/>
 								{error.status != '' && <span className="text-red text-xl mt-3">{error.status}</span>}
 
@@ -428,6 +522,7 @@ const UserForm: React.FC = () => {
 									value={data.gender}
 									form={data}
 									setForm={setData}
+									disabled={true}
 								/>
 
 							</div>
@@ -437,6 +532,7 @@ const UserForm: React.FC = () => {
 									Địa chỉ thường trú
 								</label>
 								<input
+									disabled
 									type="text"
 									placeholder="Địa chỉ hiện tại"
 									defaultValue={data.address}
@@ -454,6 +550,7 @@ const UserForm: React.FC = () => {
 									Hộ khẩu
 								</label>
 								<input
+									disabled
 									type="text"
 									placeholder="Hộ khẩu"
 									defaultValue={data.cccdAddress}
@@ -471,6 +568,7 @@ const UserForm: React.FC = () => {
 									Số Căn cước
 								</label>
 								<input
+									disabled
 									type="text"
 									placeholder="Số Căn cước"
 									defaultValue={data.cccd}
@@ -485,12 +583,13 @@ const UserForm: React.FC = () => {
 
 							<div className="mb-5">
 								<label className="mb-3 text-xl block text-sm font-medium text-black dark:text-white">
-									Ngày cấp
+									Có giá tri đến
 								</label>
 								<input
 									type="date"
 									placeholder="Tên nhân viên"
 									defaultValue={data.cccdDate}
+									// value={data.cccdDate}
 									onChange={e => {
 										setField(e?.target?.value, 'cccdDate', data, setData);
 									}}
@@ -505,6 +604,7 @@ const UserForm: React.FC = () => {
 									Quốc tịch
 								</label>
 								<input
+									disabled
 									type="text"
 									placeholder="Quốc tịch"
 									defaultValue={data.region}

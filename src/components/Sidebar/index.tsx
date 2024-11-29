@@ -19,44 +19,44 @@ const configRoute = [
 		role: ['ADMIN', 'USER']
 	},
 	{
-		name: "Nhân viên",
+		name: "Quản Lý Nhân Viên",
 		route: "/user",
 		role: ['ADMIN']
 	},
 	{
-		name: "Chấm công",
+		name: "Quản Lý Chấm Công",
 		route: "/attendance",
 		role: ['ADMIN']
 	},
 	{
-		name: "Phòng ban",
+		name: "Quản Lý Phòng Ban",
 		route: "/room",
 		role: ['ADMIN']
 	},
 
 
 	{
-		name: "Chức vụ",
+		name: "Quản Lý Chức Vụ",
 		route: "/rank",
 		role: ['ADMIN']
 	},
 	{
-		name: "Bằng cấp",
+		name: "Quản Lý Bằng Cấp",
 		route: "/certificate",
 		role: ['ADMIN']
 	},
 	{
-		name: "Loại nhân viên",
+		name: "Quản Lý Loại Nhân Viên",
 		route: "/employer-type",
 		role: ['ADMIN']
 	},
 	{
-		name: "Lương",
+		name: "Quản Lý Lương",
 		route: "/salary",
 		role: ['ADMIN', 'USER']
 	},
 	{
-		name: "Thưởng - Kỷ luật",
+		name: "Quản Lý Thưởng - Kỷ Luật",
 		route: "/bonus",
 		role: ['ADMIN', 'USER']
 	}
@@ -145,8 +145,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 		>
 			{/* <!-- SIDEBAR HEADER --> */}
 			<div className="flex items-center justify-center gap-2 px-6 py-5.5 lg:py-6.5">
-				<Link href="/" className="text-3xl text-center text-bodydark1">
-					{view == "ORDER" ? 'OCR System' : 'CRM System'}
+				<Link href="/" className="text-3xl text-center flex text-bodydark1">
+					<Image
+						src="/images/logo.png" // Adjust the path to your actual logo file
+						alt="Logo"
+						width={30} // Adjust the size as needed
+						height={30} // Adjust the size as needed
+						className="mr-2" // Add a margin to the right of the logo
+					/>
+					{view == "ORDER" ? 'OCR System' : 'DATN-TQD'}
 				</Link>
 
 				<button

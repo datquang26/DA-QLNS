@@ -124,7 +124,7 @@ const OrderList: React.FC = () => {
 												<span className="">Email: {item.email}</span>
 											</td>
 											<td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-												<img src={buildImage(item.avatar) || "/images/image_faildoad.png"} 
+												<img src={(item.avatar) || "/images/image_faildoad.png"} 
 												onError={(e) => onErrorUser(e)}
 												width={80} height={80} />
 

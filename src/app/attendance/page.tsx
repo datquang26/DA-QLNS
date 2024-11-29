@@ -131,7 +131,7 @@ const AttendanceList: React.FC = () => {
 												<span className="">Email: {item?.user?.email}</span>
 											</td>
 											<td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-												<img src={buildImage(item?.user?.avatar) || "/images/image_faildoad.png"}
+												<img src={(item?.user?.avatar) || "/images/image_faildoad.png"}
 													onError={(e) => onErrorUser(e)}
 													width={80} height={80} />
 											</td>

@@ -1,7 +1,7 @@
 // @ts-nocheck
 import axios from 'axios';
 import { getItem, timeDelay } from './helpers.service';
-import { WEB_VALUE } from './constant';
+import { FPTURL, WEB_VALUE } from './constant';
 
 const axiosClient = axios.create( {
 	baseURL: WEB_VALUE,
@@ -11,6 +11,29 @@ const axiosClient = axios.create( {
 	},
 	body: JSON.stringify(),
 } )
+
+
+// const axiosClientFpt = axios.create( {
+// 	baseURL: FPTURL,
+// 	headers: {
+// 		"X-Custom-Header": "foobar",
+//     	"api_key": "PHtrShIss7tPvkNzWo7MoqnHAq52OJxL",
+//         // 'Content-Type': 'application/json',
+// 		'Content-Type': 'multipart/form-data'
+// 	},
+// 	body: JSON.stringify(),
+// } )
+
+const axiosClientFpt = axios.create({
+	baseURL: "https://api.fpt.ai",
+	headers: {
+	  "api_key": "PHtrShIss7tPvkNzWo7MoqnHAq52OJxL",
+	  "Content-Type": "multipart/form-data" // Đảm bảo Content-Type phù hợp
+	}
+  })
+
+
+
 
 if ( getItem( 'access_token' ) )
 {
@@ -70,6 +93,19 @@ export const postMethod = async ( path, data ) =>
 			}
 		} );
 }
+
+export const postFormMethod = async ( path, data ) =>
+	{
+		return await axiosClient.postForm( `/${ path }`, data )
+			.then( response => response )
+			.catch( error =>
+			{
+				return {
+					status: 'error',
+					message: error.message || 'Invalid!'
+				}
+			} );
+	}
 
 export const getMethod = async ( path, params ) =>
 {
@@ -150,3 +186,32 @@ export const uploadFile = async ( file ) =>
 	}
 	return avatar;
 }
+
+
+//đọc căn cước công dân
+// export const postFormMethodFPT = async ( path, data ) =>
+// 	{
+// 		return await axiosClientFpt.postForm(path, data )
+// 			.then( response => response )
+// 			.catch( error =>
+// 			{
+// 				return {
+// 					status: 'error',
+// 					message: error.message || 'Invalid!'
+// 				}
+// 			} );
+// 	}
+export const postFormMethodFPT = async (path, data) => {
+	return await axiosClientFpt.post(path, data)
+	  .then(response => response)
+	  .catch(error => {
+		return {
+		  status: 'error',
+		  message: error.message || 'Invalid!'
+		};
+	});
+};
+
+
+  
+  

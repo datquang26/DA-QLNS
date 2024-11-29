@@ -1,7 +1,8 @@
 import axios from "axios";
-import { deleteMethod, getMethod, postMethod, putFormMethod, putMethod, uploadFile } from "./apiService.service"
+import { deleteMethod, getMethod, postFormMethod, postFormMethodFPT, postMethod, putFormMethod, putMethod, uploadFile } from "./apiService.service"
 import { URL_API, WEB_VALUE } from "./constant";
 import { buildFilter, timeDelay } from "./helpers.service";
+import NextCors from 'nextjs-cors';
 
 export const ORDER_SERVICE = {
 	async getList(filters: any) {
@@ -113,7 +114,7 @@ export const COMMON_API = {
 	async store(url: any,data: any) {
 		// await timeDelay(1000)
 
-		return await postMethod(`${url}/store`, data);
+		return await postFormMethod(`${url}/store`, data);
 	},
 	async show(url: any,id: any) {
 		// await timeDelay(1000)
@@ -122,7 +123,7 @@ export const COMMON_API = {
 	},
 	async update(url: any,id: any, data: any) {
 		// await timeDelay(1000)
-		return await putMethod(`${url}/update/` + id, data);
+		return await putFormMethod(`${url}/update/` + id, data);
 	},
 	async delete(url: any,id: any) {
 		// await timeDelay(1000)
@@ -170,6 +171,19 @@ export const UPLOAD_SERVICE = {
 				data: error
 			}
 		}
+	}, 
+	async validateCCCD(file: any) {
+		try {
+			const formData = new FormData();
+			formData.append('image', file);
+			return postFormMethodFPT("/vision/idr/vnm", formData);
+		} catch (error) {
+			return {
+				status: 'error',
+				data: error
+			}
+		}
 	}
+
 
 };

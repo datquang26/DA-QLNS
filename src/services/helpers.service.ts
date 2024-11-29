@@ -123,6 +123,16 @@ export const formatTime = (value: any, format: any): any => {
 	return null;
 }
 
+export const formatTime2 = (value: any, format: any): any => {
+    if (value) {
+        const momentValue = moment(value, "DD/MM/YYYY"); // Parse với định dạng ngày tháng cụ thể
+        if (momentValue.isValid()) { // Kiểm tra xem value có hợp lệ không
+            return format ? momentValue.format(format) : momentValue.toDate();
+        }
+    }
+    return null;
+};
+
 export const subTime = (from_value: any, to_value: any): any => {
 	if (from_value && to_value) {
 		return moment(to_value).diff(moment(from_value), 'days');

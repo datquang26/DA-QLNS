@@ -10,7 +10,7 @@ const SelectGroupTwo: React.FC = (props: any) => {
 	const changeTextColor = () => {
 		setIsOptionSelected(true);
 	};
-
+	console.log(props.disabled)
 	return (
 		<div>
 			{props.title && <label className="mb-3 block text-xl text-sm font-medium text-black dark:text-white">
@@ -22,6 +22,7 @@ const SelectGroupTwo: React.FC = (props: any) => {
 
 				<select
 					value={props.value || ''}
+					disabled={props.disabled}
 					onChange={(e) => {
 						console.log(e.target.value);
 						if(props.key_obj) {

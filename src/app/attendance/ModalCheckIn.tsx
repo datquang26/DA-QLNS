@@ -42,16 +42,18 @@ const ModalCheckInPage = (props: any) => {
 
 	const handleOk = async () => {
 		let data: any = form.getFieldsValue();
-		if (!data?.morning && !data?.afternoon) {
-			message.error('Vui long chọn ca làm việc');
-			return;
-		}
+		// if (!data?.morning && !data?.afternoon) {
+		// 	message.error('Vui long chọn ca làm việc');
+		// 	return;
+		// }
 		console.log("data-------------->", data)
 		data.check_in = moment(data.check_in).format('yyyy-MM-DD');
 		data.full_name = props?.detail?.full_name ||props?.detail?.user?.name;
 		data.email = props?.detail?.email ||props?.detail?.user?.name;
 		data.user_id = props?.detail?.user_id ||props?.detail?.user?.id;
-		data.type = data?.morning && data?.afternoon ? 'ALL' : (data?.morning && 'MORNING' || 'AFTERNOON')
+		// data.type = data?.morning && data?.afternoon ? 'ALL' : (data?.morning && 'MORNING' || 'AFTERNOON')
+		data.type = 'ALL'
+
 		setLoading(true);
 		const response: any = await ATTENDANCE_SERVICE.update(props.detail.id, data);
 		console.log('update ---------------? ', response)
@@ -90,7 +92,7 @@ const ModalCheckInPage = (props: any) => {
 					rules={[{ required: true, message: 'Thời gian không được để trống' }]}>
 					<DatePicker disabledDate={disablePastDates} format={'DD-MM-YYYY'} placeholder="Chọn thời gian" className="w-full" />
 				</Form.Item>
-				<div className="flex gap-4 items-center">
+				{/* <div className="flex gap-4 items-center">
 					<label >Ca làm việc</label>
 					<Form.Item name="morning" className="mb-0" valuePropName="checked">
 						<Checkbox className="text-nowrap">Ca sáng</Checkbox>
@@ -98,7 +100,7 @@ const ModalCheckInPage = (props: any) => {
 					<Form.Item name="afternoon" className="mb-0" valuePropName="checked">
 						<Checkbox className="text-nowrap" >Ca chiều</Checkbox>
 					</Form.Item>
-				</div>
+				</div> */}
 				<div className="flex gap-4 justify-end">
 					<Button key="back" onClick={handleCancel}>
 						Hủy

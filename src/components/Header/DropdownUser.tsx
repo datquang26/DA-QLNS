@@ -56,7 +56,7 @@ const DropdownUser = () => {
 					<img
 						width={112}
 						height={112}
-						src={buildImage(user?.avatar)}
+						src={(user?.avatar)}
 						style={{
 							width: "auto",
 							height: "auto",

@@ -4,7 +4,7 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 
 export const metadata: Metadata = {
   title:
-    "QuanLiNhanSu-LSD",
+    "QuanLiNhanSu-TQD",
   description: "This is Next.js Home for TailAdmin Dashboard Template",
 };
 

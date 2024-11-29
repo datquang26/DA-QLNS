@@ -303,7 +303,8 @@ const Settings = () => {
 										/>
 									</div>
 								</div>
-								<div className="mb-5 form">
+								
+								{/* <div className="mb-5 form">
 								<label className="mb-3 text-xl block text-sm font-medium text-black dark:text-white">
 									Ảnh đại diện
 								</label>
@@ -320,8 +321,8 @@ const Settings = () => {
 										if (refFile?.current) refFile.current.click();
 									}
 								} />
-								{/* {errorFile != '' && <span className="text-red text-xl mt-3">{errorFile}</span>} */}
-							</div>
+						
+							</div> */}
 
 
 
