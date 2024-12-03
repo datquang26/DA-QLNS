@@ -12,7 +12,7 @@
     "@ckeditor/ckeditor5-build-classic": "^41.4.2",
     "@ckeditor/ckeditor5-react": "^7.0.0",
     "antd": "^5.17.3",
-    "apexcharts": "^3.45.2",
+    "apexcharts": "^4.0.0",
     "axios": "^1.6.8",
     "dayjs": "^1.11.13",
     "flatpickr": "^4.6.13",
