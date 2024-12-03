@@ -83,7 +83,7 @@ import React, { useEffect, useState } from "react";
 // Định nghĩa kiểu cho các props
 interface SelectGroupTwoProps {
   title?: string;          // title là prop tùy chọn, có thể không có
-  options: { id: string; name: string }[];  // options là một mảng các đối tượng có thuộc tính id và name
+  options: { id: number; name: string }[];  // options là một mảng các đối tượng có thuộc tính id và name
   key_obj?: string;        // key_obj là prop tùy chọn
   value: string;           // value là giá trị đã chọn
   form: any;               // form và setForm có thể là đối tượng hoặc bất kỳ kiểu nào bạn sử dụng
