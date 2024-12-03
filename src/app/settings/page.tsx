@@ -281,7 +281,7 @@ const Settings = () => {
 									<div className="relative">
 
 										<SelectGroupTwo
-											title={null}
+											title={""}
 											options={[
 												{
 													id: 'MALE',

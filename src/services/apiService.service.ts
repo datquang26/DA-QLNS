@@ -89,7 +89,8 @@ export const postMethod = async ( path, data ) =>
 		{
 			return {
 				status: 'error',
-				message: error.message || 'Invalid!'
+				message: error.message || 'Invalid!',
+				data:any
 			}
 		} );
 }
@@ -118,7 +119,8 @@ export const getMethod = async ( path, params ) =>
 		{
 			return {
 				status: 'error',
-				message: error.message || 'Invalid!'
+				message: error.message || 'Invalid!',
+				data:any
 			}
 		} );
 }
