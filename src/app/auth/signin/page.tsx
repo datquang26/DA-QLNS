@@ -78,15 +78,15 @@ const SignIn: React.FC = () => {
 				<div className="flex flex-wrap items-center">
 					{!openView ? <>
 						<div className="hidden w-full xl:block xl:w-1/2">
-							<div className="px-26 py-17.5 text-center">
+							<div className="px-26 py-17.5 text-center flex flex-col">
 								<Link className="mb-5.5 inline-block" href="/">
 									<h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-										Sign In to CRM System
+										TQD System
 									</h2>
 								</Link>
 
-								<span className="mt-15 inline-block">
-									<svg
+								<div className="flex justify-center">
+									{/* <svg
 										width="350"
 										height="350"
 										viewBox="0 0 350 350"
@@ -205,15 +205,22 @@ const SignIn: React.FC = () => {
 											d="M310.566 183.213C309.132 182.066 307.174 184.151 307.174 184.151L306.026 173.828C306.026 173.828 298.853 174.687 294.261 173.542C289.67 172.396 288.953 177.7 288.953 177.7C288.716 175.557 288.668 173.399 288.81 171.248C289.096 168.667 292.827 166.087 299.427 164.366C306.026 162.646 309.47 170.101 309.47 170.101C314.061 172.395 312.001 184.36 310.566 183.213Z"
 											fill="#1C2434"
 										/>
-									</svg>
-								</span>
+									</svg> */}
+									<Image
+										src="/images/logo2.jpg" // Adjust the path to your actual logo file
+										alt="Logo"
+										width={265} // Adjust the size as needed
+										height={265} // Adjust the size as needed
+										className="mr-2" // Add a margin to the right of the logo
+									/>
+								</div>
 							</div>
 						</div>
 						<div className="w-full border-stroke dark:border-strokedark xl:w-1/2 xl:border-l-2">
 							<div className="w-full p-4 sm:p-12.5 xl:p-17.5">
 								<span className="mb-1.5 block font-medium">Start for free</span>
 								<h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-									Sign In to CRM System
+									Sign In
 								</h2>
 								{errorForm && <span className="text-red text-xl text-bold">{errorForm}</span>}
 
@@ -311,7 +318,7 @@ const SignIn: React.FC = () => {
 											onClick={(e) => onSubmit(e)}
 											value="Sign In"
 											className="w-full cursor-pointer rounded-lg border 
-										border-primary bg-primary p-4 
+										bg-orange-500 border-orange-500 p-4 
 										text-white transition hover:bg-opacity-90"
 										/>
 									</div>

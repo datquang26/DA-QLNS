@@ -165,7 +165,7 @@ const FormLayout = () => {
                   </Link>
                 </div>
 
-                <button className="flex w-full justify-center rounded bg-primary p-3 font-medium text-gray hover:bg-opacity-90">
+                <button className="flex w-full justify-center rounded p-3 font-medium text-gray hover:bg-opacity-90 bg-orange-500 border-orange-500">
                   Sign In
                 </button>
               </div>
