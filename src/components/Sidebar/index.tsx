@@ -153,7 +153,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
 						height={30} // Adjust the size as needed
 						className="mr-2" // Add a margin to the right of the logo
 					/>
-					{view == "ORDER" ? 'OCR System' : 'DATN-TQD'}
+					{view == "ORDER" ? 'OCR System' : 'LSD'}
 				</Link>
 
 				<button

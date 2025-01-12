@@ -114,6 +114,11 @@ export const COMMON_API = {
 	async store(url: any,data: any) {
 		// await timeDelay(1000)
 
+		return await postMethod(`${url}/store`, data);
+	},
+	async store2(url: any,data: any) {
+		// await timeDelay(1000)
+
 		return await postFormMethod(`${url}/store`, data);
 	},
 	async show(url: any,id: any) {
@@ -122,6 +127,10 @@ export const COMMON_API = {
 		return await getMethod(`${url}/show/` + id, {});
 	},
 	async update(url: any,id: any, data: any) {
+		// await timeDelay(1000)
+		return await putMethod(`${url}/update/` + id, data);
+	},
+	async update2(url: any,id: any, data: any) {
 		// await timeDelay(1000)
 		return await putFormMethod(`${url}/update/` + id, data);
 	},
@@ -186,4 +195,15 @@ export const UPLOAD_SERVICE = {
 	}
 
 
+};
+
+export const USER_API = {
+	
+	async searchUser(name: string) {
+		// Tạo tham số cho getMethod
+		const params = { name };
+
+		return await postMethod(`user/search-name`, params);
+	}
+	
 };

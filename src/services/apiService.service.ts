@@ -28,7 +28,7 @@ const axiosClientFpt = axios.create({
 	baseURL: "https://api.fpt.ai",
 	headers: {
 	  "api_key": "PHtrShIss7tPvkNzWo7MoqnHAq52OJxL",
-	  "Content-Type": "multipart/form-data" // Đảm bảo Content-Type phù hợp
+	  "Content-Type": "multipart/form-data" 
 	}
   })
 
@@ -89,8 +89,7 @@ export const postMethod = async ( path, data ) =>
 		{
 			return {
 				status: 'error',
-				message: error.message || 'Invalid!',
-				data:any
+				message: error.message || 'Invalid!'
 			}
 		} );
 }
@@ -119,8 +118,7 @@ export const getMethod = async ( path, params ) =>
 		{
 			return {
 				status: 'error',
-				message: error.message || 'Invalid!',
-				data:any
+				message: error.message || 'Invalid!'
 			}
 		} );
 }

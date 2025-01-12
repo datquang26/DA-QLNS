@@ -281,19 +281,19 @@ const Settings = () => {
 									<div className="relative">
 
 										<SelectGroupTwo
-											title={""}
+											title={null}
 											options={[
 												{
 													id: 'MALE',
-													name: 'Male'
+													name: 'Nam'
 												},
 												{
 													id: 'FEMALE',
-													name: 'Female'
+													name: 'Nữ'
 												},
 												{
 													id: 'OTHER',
-													name: 'other'
+													name: 'Khác'
 												}
 											]}
 											key_obj={'gender'}
@@ -331,14 +331,14 @@ const Settings = () => {
 										className="flex justify-center rounded border border-stroke px-6 py-2 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white"
 										type="button"
 									>
-										Cancel
+										Hủy
 									</Link>
 									<button
-										className="flex justify-center rounded bg-primary px-6 py-2 font-medium text-gray hover:bg-opacity-90"
+										className="flex justify-center rounded bg-orange-400 px-6 py-2 font-medium text-gray hover:bg-opacity-90"
 										type="submit"
 										onClick={(e) => onSubmit(e)}
 									>
-										Save
+										Xác nhận
 									</button>
 								</div>
 							</form>

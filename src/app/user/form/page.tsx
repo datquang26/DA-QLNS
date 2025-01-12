@@ -14,7 +14,7 @@ import Loader from "@/components/common/Loader";
 import CkeditorPage from "@/components/common/CkEditor";
 import '../../../assets/style.css'
 import axios from "axios";
-import handler from "@/services/configCORS";
+// import handler from "@/services/configCORS";
 import moment from "moment";
 import { message  } from "antd";
 
@@ -116,7 +116,8 @@ const UserForm: React.FC = () => {
 				address: response?.data?.address,
 				cccd: response?.data?.cccd,
 				cccdAddress: response?.data?.cccdAddress,
-				cccdDate: response?.data?.cccdDate,
+				// cccdDate: response?.data?.cccdDate,
+				cccdDate: formatTime(response?.data?.cccdDate, 'yyyy-MM-DD'),
 				region: response?.data?.region,
 				dob: formatTime(response?.data?.dob, 'yyyy-MM-DD'),
 				employerTypeId: response?.data?.employerType?.id,
@@ -263,9 +264,11 @@ const UserForm: React.FC = () => {
 		setLoading(true);
 
 		if (id) {
-			response = await COMMON_API.update('user', id, bodyData);
+			response = await COMMON_API.update2('user', id, bodyData);
+			message.success("Cập nhật user thành công")
 		} else {
-			response = await COMMON_API.store('user', bodyData);
+			response = await COMMON_API.store2('user', bodyData);
+			message.success("Thêm user thành công")
 		}
 		setLoading(false);
 
@@ -501,7 +504,7 @@ const UserForm: React.FC = () => {
 
 
 							</div>
-							<div className="mb-5">
+							<div className="mb-5 ">
 								<SelectGroupTwo
 									title={'Giới tính'}
 									options={[
@@ -523,6 +526,7 @@ const UserForm: React.FC = () => {
 									form={data}
 									setForm={setData}
 									disabled={true}
+							
 								/>
 
 							</div>
@@ -674,13 +678,13 @@ const UserForm: React.FC = () => {
 							<Link href={'/user'} className="inline-flex items-center justify-center 
 							rounded-md bg-gray mr-3 px-5 py-2 text-center 
 							font-medium hover:bg-gray-900 lg:px-8 xl:px-10">
-								Cancel
+								Hủy
 							</Link>
 							<button className="inline-flex items-center justify-center
-							rounded-md bg-primary px-5 py-2 text-center
+							rounded-md bg-orange-400 px-5 py-2 text-center
 							font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
 								onClick={(e) => submit(e)}
-							>Submit</button>
+							>Xác nhận</button>
 						</div>
 					</form>
 				</div>

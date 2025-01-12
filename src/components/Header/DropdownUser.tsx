@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { buildImage, getItem } from "@/services/helpers.service";
+import { useRouter } from "next/navigation";
 
 const DropdownUser = () => {
 	const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -36,6 +37,15 @@ const DropdownUser = () => {
 		document.addEventListener("keydown", keyHandler);
 		return () => document.removeEventListener("keydown", keyHandler);
 	});
+
+
+	const router = useRouter()
+
+	const handleUpdate = () => {
+		const userId = getItem("user")?.id
+		router.push(`/user/form?id=${userId}`)
+	}
+
 
 	return (
 		<div className="relative">
@@ -141,8 +151,9 @@ const DropdownUser = () => {
             </Link>
           </li> */}
 					<li>
-						<Link
-							href="/settings"
+						<div
+							// href="/settings"
+							onClick={handleUpdate}
 							className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
 						>
 							<svg
@@ -163,7 +174,7 @@ const DropdownUser = () => {
 								/>
 							</svg>
 							Account Settings
-						</Link>
+						</div>
 					</li>
 				</ul>
 				<p className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"

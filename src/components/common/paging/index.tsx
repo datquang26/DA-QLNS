@@ -126,8 +126,12 @@ export const PagingPage = (props: any) => {
 								relative inline-flex items-center px-4 py-2 
 								text-sm font-semibold  focus:z-20 
 								${page == item ?
-										'bg-indigo-600 text-white focus-visible:outline-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2' :
-										`text-gray-900 ring-1 ring-inset  ring-gray-300 hover:bg-gray-50 focus:outline-offset-0`}
+										// 'bg-indigo-600 text-white focus-visible:outline-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2' :
+										// `text-gray-900 ring-1 ring-inset  ring-gray-300 hover:bg-gray-50 focus:outline-offset-0`}
+
+										'bg-orange-400 text-white focus-visible:outline-indigo-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2' : 
+										`text-gray-800 ring-1 ring-inset ring-gray-300 hover:bg-orange-100 focus:outline-offset-0`}
+
 								`}
 								key={key}
 								onClick={() => {

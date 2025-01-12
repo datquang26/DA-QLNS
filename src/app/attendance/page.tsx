@@ -152,9 +152,9 @@ const AttendanceList: React.FC = () => {
 											</td>
 
 											<td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-												<div className="flex items-center space-x-3.5">
-													<FaPencil onClick={() => updateData(item)}/>
-													<FaTrash onClick={() => deleteData(item.id)}/>
+												<div className="flex items-center space-x-3.5 " >
+													<FaPencil className="hover:text-orange-400" onClick={() => updateData(item)}/>
+													<FaTrash className="hover:text-orange-400" onClick={() => deleteData(item.id)}/>
 												</div>
 											</td>
 										</tr>

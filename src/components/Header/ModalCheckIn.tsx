@@ -204,7 +204,7 @@ const ModalCheckIn = () => {
 
   return (
     <li className="relative">
-      <Button type="primary" onClick={showModal}>
+      <Button style={{ backgroundColor: 'orange', borderColor: 'orange' }} type="primary" onClick={showModal}>
         Chấm công
       </Button>
       <Modal

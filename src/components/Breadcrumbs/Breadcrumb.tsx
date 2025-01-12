@@ -17,7 +17,7 @@ const Breadcrumb = (props: BreadcrumbProps) => {
 							Dashboard /
 						</Link>
 					</li>
-					<li className="font-medium text-primary">{props.subName || props.pageName}</li>
+					<li className="font-medium text-orange-400">{props.subName || props.pageName}</li>
 				</ol>
 			</nav>
 			<h2 className="text-title-md2 font-semibold text-black dark:text-white">

@@ -105,7 +105,7 @@ const ModalCheckInPage = (props: any) => {
 					<Button key="back" onClick={handleCancel}>
 						Hủy
 					</Button>
-					<button type="submit" className="btn px-6 bg-primary rounded-md text-white hover:bg-opacity-90">
+					<button type="submit" className="btn px-6 bg-orange-400 rounded-md text-white hover:bg-opacity-90">
 						Xác nhận
 					</button>
 

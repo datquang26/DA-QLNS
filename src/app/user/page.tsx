@@ -14,6 +14,7 @@ import { PagingPage } from "@/components/common/paging";
 import Loader from "@/components/common/Loader";
 import { FaTrash } from "react-icons/fa";
 import { FaPencil } from "react-icons/fa6";
+import { USER_API } from "@/services/api.service";
 
 
 
@@ -22,6 +23,7 @@ const OrderList: React.FC = () => {
 	const [dataList, setDataList] = useState([]);
 	const [paging, setPaging] = useState(INIT_PAGING);
 	const [loading, setLoading] = useState(false);
+	const [searchUser, setSearchUser] = useState("");
 
 	useEffect(() => {
 		getDataList({ ...paging })
@@ -37,6 +39,37 @@ const OrderList: React.FC = () => {
 		}
 	}
 
+
+	// Khai báo state để lưu giá trị ô input
+	const [searchTerm, setSearchTerm] = useState("");
+	
+	// Xử lý khi thay đổi giá trị trong ô input
+	const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		console.log(e.target.value)
+		setSearchTerm(e.target.value);
+	}
+	
+	// Xử lý sự kiện khi nhấn nút "Tìm kiếm"
+	const handleSearch = async () => {
+		if (searchTerm.trim()) {
+		try {
+			// Gọi API với tên người dùng tìm kiếm
+			const response = await USER_API.searchUser(searchTerm);
+			if(!response.data){
+				setDataList([])
+				return
+			}
+			setDataList([response.data]);
+			console.log(response.data); // Xử lý kết quả API nếu cần
+		} catch (error) {
+			console.error("Lỗi khi tìm kiếm:", error);
+		}
+		} else {
+		console.log("Vui lòng nhập tên tìm kiếm!");
+		}
+	}
+	
+
 	return (
 		<DefaultLayout>
 			<Breadcrumb pageName="Danh sách" subName="Nhân viên" />
@@ -47,10 +80,49 @@ const OrderList: React.FC = () => {
 						<h4 className="text-xl font-semibold text-black dark:text-white">
 							Danh sách
 						</h4>
-						<Link href={'/user/form'} className="inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">Create</Link>
+						<Link href={'/user/form'} className="inline-flex items-center justify-center rounded-md bg-orange-400 px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">Tạo mới</Link>
 					</div>
+
+
+
+
+
+
+					<div className="flex items-center gap-4 px-2 py-2 pl-4">
+						<input
+							type="text"
+							placeholder="Tìm kiếm tên nhân viên..."
+							className="px-4 py-2 border rounded-md text-sm dark:bg-boxdark dark:text-white"
+							value={searchTerm}  // Trạng thái của ô input tìm kiếm
+							onChange={handleSearchChange} // Xử lý thay đổi giá trị tìm kiếm
+						/>
+						<button
+							onClick={handleSearch}  // Hàm xử lý tìm kiếm
+							className="bg-orange-400 text-white px-6 py-2 rounded-md hover:bg-opacity-90 lg:px-8 xl:px-10"
+						>
+							Tìm kiếm
+						</button>
+						<button
+							onClick={()=> {
+								getDataList({ ...paging })
+							}}  // Hàm xử lý tìm kiếm
+							// className="bg-orange-400 text-white px-6 py-2 rounded-md hover:bg-opacity-90 lg:px-8 xl:px-10"
+							className="inline-flex items-center justify-center 
+							rounded-md bg-gray mr-3 px-5 py-2 text-center 
+							font-medium hover:bg-gray-900 lg:px-8 xl:px-10"
+						>
+							Đặt lại
+						</button>
+            		</div>
+
+
+
 					{loading && <Loader className={"bg-opacity-60 bg-white z-50 fixed top-0 left-0 w-full h-full"} />}
-					<div className="px-4">
+					<>
+						{dataList.length == 0 ? 
+							<div>Không có dữ liệu</div>	: 
+							<>
+								<div className="px-4">
 						<div className="max-w-full overflow-x-auto">
 							<table className="w-full table-auto">
 								<thead>
@@ -191,7 +263,7 @@ const OrderList: React.FC = () => {
 											</td>
 											<td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
 												<div className="flex items-center space-x-3.5">
-													<Link href={'/user/form?id=' + item.id} className="hover:text-primary"
+													<Link href={'/user/form?id=' + item.id} className="hover:text-orange-400"
 													>
 														<FaPencil />
 													</Link>
@@ -211,6 +283,12 @@ const OrderList: React.FC = () => {
 								getDataList({ page: e, page_size: paging.page_size })
 							}} />
 					</div>
+							
+							
+							 </>
+					}
+					</>
+					
 				</div>
 			</div>
 		</DefaultLayout>

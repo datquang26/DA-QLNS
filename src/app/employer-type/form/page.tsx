@@ -232,13 +232,13 @@ const EmployerTpeForm: React.FC = () => {
 							<Link href={'/employer-type'} className="inline-flex items-center justify-center 
 							rounded-md bg-gray mr-3 px-5 py-2 text-center 
 							font-medium hover:bg-gray-900 lg:px-8 xl:px-10">
-								Cancel
+								Hủy
 							</Link>
 							<button className="inline-flex items-center justify-center
-							rounded-md bg-primary px-5 py-2 text-center
+							rounded-md bg-orange-400 px-5 py-2 text-center
 							font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10"
 								onClick={(e) => submit(e)}
-							>Submit</button>
+							>Xác nhận</button>
 						</div>
 					</form>
 				</div>

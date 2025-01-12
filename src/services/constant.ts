@@ -2,7 +2,8 @@
 
 export const STATIC_URL_IMAGE=process.env.NEXT_PUBLIC_API + 'upload/';
 export const STATIC_URL_API=process.env.NEXT_PUBLIC_DOMAIN_API;
-export const WEB_VALUE=process.env.NEXT_PUBLIC_API || 'http://localhost:3010';
+// export const WEB_VALUE=process.env.NEXT_PUBLIC_API || 'http://localhost:3010';
+export const WEB_VALUE=process.env.NEXT_PUBLIC_API || 'http://192.168.200.12:3010';
 export const URL = 'http://localhost:4000';
 export const FPTURL = 'https://api.fpt.ai';
 export const URL_API = {
@@ -10,7 +11,8 @@ export const URL_API = {
 	ORDER: 'order',
 	UPLOAD: 'upload',
 	ATTENDANCE: 'attendance',
-	CATEGORY: 'category'
+	CATEGORY: 'category',
+	USER: 'user'
 };
 
 

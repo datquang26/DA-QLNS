@@ -48,7 +48,7 @@ const OrderList: React.FC = () => {
 						<h4 className="text-xl font-semibold text-black dark:text-white">
 							Danh sách
 						</h4>
-						<Link href={'/room/form'} className="inline-flex items-center justify-center rounded-md bg-primary px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">Create</Link>
+						<Link href={'/room/form'} className="inline-flex items-center justify-center rounded-md bg-orange-400 px-10 py-2 text-center font-medium text-white hover:bg-opacity-90 lg:px-8 xl:px-10">Tạo mới</Link>
 					</div>
 					{loading && <Loader className={"bg-opacity-60 bg-white z-50 fixed top-0 left-0 w-full h-full"} />}
 					<div className="px-4">
@@ -124,7 +124,7 @@ const OrderList: React.FC = () => {
 													>
 														<FaTrash />
 													</button> */}
-													<Link href={'/room/form?id='+item.id} className="hover:text-primary"
+													<Link href={'/room/form?id='+item.id} className="hover:text-orange-400"
 													>
 														<FaPencil />
 													</Link>

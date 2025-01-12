@@ -57,6 +57,8 @@ const SignIn: React.FC = () => {
 		if (response?.status == 'success') {
 			setItem('user', response?.data?.user);
 			setItem('access_token', response?.data?.access_token);
+			console.log(response.data)
+			// setItem()
 			setErrorForm('');
 			// window.location.href = '/';
 			setItem("view", "USER"); // USER: Qlys nhân sự  -- ORDER: Quản lý đơn hàng
@@ -81,7 +83,7 @@ const SignIn: React.FC = () => {
 							<div className="px-26 py-17.5 text-center flex flex-col">
 								<Link className="mb-5.5 inline-block" href="/">
 									<h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-										TQD System
+										LSD System
 									</h2>
 								</Link>
 

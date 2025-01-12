@@ -223,7 +223,7 @@ const SignUp: React.FC = () => {
 						<div className="px-26 py-17.5 text-center">
 							<Link className="mb-5.5 inline-block" href="/">
 								<h2 className="mb-9 text-2xl font-bold text-black dark:text-white sm:text-title-xl2">
-										TQD System
+										LSD System
 									</h2>
 							</Link>
 
